@@ -12,7 +12,7 @@ const options: swaggerJsdoc.Options = {
         'REST API for managing tasks within a team. Features JWT auth with refresh token rotation, RBAC (ADMIN/MANAGER/MEMBER), enforced status transitions, Redis caching, and full Docker deployment.',
       contact: { name: 'API Support' },
     },
-    servers: [{ url: '/api', description: 'API base path' }],
+    servers: [{ url: '/', description: 'API base path' }],
     components: {
       securitySchemes: {
         bearerAuth: {
