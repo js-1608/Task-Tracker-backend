@@ -91,10 +91,10 @@ const options: swaggerJsdoc.Options = {
     ],
   },
   apis: [
-    path.join(__dirname, '../modules/**/*.controller.ts'),
-    path.join(__dirname, '../modules/**/*.routes.ts'),
-    path.join(__dirname, '../modules/**/*.controller.js'),
-    path.join(__dirname, '../modules/**/*.routes.js'),
+    path.join(__dirname, '../modules/**/*.controller.ts').replace(/\\/g, '/'),
+    path.join(__dirname, '../modules/**/*.routes.ts').replace(/\\/g, '/'),
+    path.join(__dirname, '../modules/**/*.controller.js').replace(/\\/g, '/'),
+    path.join(__dirname, '../modules/**/*.routes.js').replace(/\\/g, '/'),
   ],
 };
 
