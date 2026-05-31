@@ -1,0 +1,81 @@
+{
+  "name": "task-tracker-api",
+  "version": "1.0.0",
+  "description": "REST API for team-based task management with RBAC, JWT auth, Redis caching, and Docker deployment",
+  "main": "dist/src/server.js",
+  "scripts": {
+    "build": "tsc --project tsconfig.json",
+    "start": "node dist/src/server.js",
+    "dev": "nodemon",
+    "db:seed": "ts-node src/scripts/seed.ts",
+    "test": "jest --runInBand --forceExit",
+    "test:watch": "jest --watch --runInBand",
+    "test:coverage": "jest --coverage --runInBand --forceExit",
+    "lint": "tsc --noEmit"
+  },
+  "keywords": [
+    "task-tracker",
+    "rest-api",
+    "rbac",
+    "jwt",
+    "mongodb",
+    "mongoose",
+    "redis",
+    "docker",
+    "react"
+  ],
+  "author": "",
+  "license": "MIT",
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "roots": [
+      "<rootDir>/tests"
+    ],
+    "testMatch": [
+      "**/*.test.ts"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/tests/setup.ts"
+    ],
+    "globals": {
+      "ts-jest": {
+        "tsconfig": "tsconfig.json"
+      }
+    }
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.5.2",
+    "helmet": "^8.2.0",
+    "ioredis": "^5.11.0",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.6.3",
+    "swagger-jsdoc": "^6.3.0",
+    "swagger-ui-express": "^5.0.1",
+    "uuid": "^14.0.0",
+    "winston": "^3.19.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/jest": "^30.0.0",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^25.9.1",
+    "@types/supertest": "^7.2.0",
+    "@types/swagger-jsdoc": "^6.0.4",
+    "@types/swagger-ui-express": "^4.1.8",
+    "@types/uuid": "^10.0.0",
+    "jest": "^30.4.2",
+    "nodemon": "^3.1.14",
+    "supertest": "^7.2.2",
+    "ts-jest": "^29.4.11",
+    "ts-node": "^10.9.2",
+    "typescript": "^6.0.3"
+  }
+}
