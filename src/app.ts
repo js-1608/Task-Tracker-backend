@@ -10,6 +10,8 @@ import { env } from './config/env';
 import { swaggerSpec } from './config/swagger';
 import { errorHandler } from './middlewares/errorHandler';
 import { logger } from './utils/logger';
+import mongoose from 'mongoose';
+import { redis } from './config/redis';
 
 import authRoutes from './modules/auth/auth.routes';
 import userRoutes from './modules/users/users.routes';
@@ -20,7 +22,11 @@ import analyticsRoutes from './modules/analytics/analytics.routes';
 const app = express();
 
 // ─── Security ─────────────────────────────────────────────────────────────────
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+  }),
+);
 app.use(
   cors({
     origin: process.env.CORS_ORIGIN ?? '*',
@@ -59,8 +65,28 @@ app.use(
 );
 
 // ─── Health Check ─────────────────────────────────────────────────────────────
-app.get('/health', (_req, res) => {
-  res.json({ status: 'ok', timestamp: new Date().toISOString() });
+app.get('/health', async (_req, res) => {
+  const dbStatus = mongoose.connection.readyState === 1 ? 'up' : 'down';
+  let redisStatus = 'down';
+  try {
+    if (redis.status === 'ready') {
+      await redis.ping();
+      redisStatus = 'up';
+    }
+  } catch (err) {
+    logger.error('Healthcheck Redis ping failed', err);
+  }
+
+  const isHealthy = dbStatus === 'up' && redisStatus === 'up';
+
+  res.status(isHealthy ? 200 : 503).json({
+    status: isHealthy ? 'healthy' : 'unhealthy',
+    timestamp: new Date().toISOString(),
+    services: {
+      database: dbStatus,
+      cache: redisStatus,
+    },
+  });
 });
 
 // ─── Routes ───────────────────────────────────────────────────────────────────

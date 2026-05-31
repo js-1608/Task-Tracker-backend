@@ -1,5 +1,6 @@
 // src/config/swagger.ts
 import swaggerJsdoc from 'swagger-jsdoc';
+import path from 'path';
 
 const options: swaggerJsdoc.Options = {
   definition: {
@@ -89,7 +90,12 @@ const options: swaggerJsdoc.Options = {
       { name: 'Analytics', description: 'Org-level analytics (ADMIN/MANAGER)' },
     ],
   },
-  apis: ['./src/modules/**/*.controller.ts', './src/modules/**/*.routes.ts'],
+  apis: [
+    path.join(__dirname, '../modules/**/*.controller.ts'),
+    path.join(__dirname, '../modules/**/*.routes.ts'),
+    path.join(__dirname, '../modules/**/*.controller.js'),
+    path.join(__dirname, '../modules/**/*.routes.js'),
+  ],
 };
 
 export const swaggerSpec = swaggerJsdoc(options);
