@@ -41,8 +41,15 @@ const options: swaggerJsdoc.Options = {
           type: 'object',
           required: ['email', 'password'],
           properties: {
-            email: { type: 'string', format: 'email' },
-            password: { type: 'string' },
+            email: { type: 'string', format: 'email', example: 'admin@demo.com' },
+            password: { type: 'string', example: 'Admin123' },
+          },
+        },
+        RefreshInput: {
+          type: 'object',
+          required: ['refreshToken'],
+          properties: {
+            refreshToken: { type: 'string' },
           },
         },
         ErrorResponse: {
@@ -78,6 +85,35 @@ const options: swaggerJsdoc.Options = {
                 name: { type: 'string' },
               },
             },
+          },
+        },
+        CreateTaskInput: {
+          type: 'object',
+          required: ['title', 'projectId'],
+          properties: {
+            title: { type: 'string', example: 'Design UI mockup' },
+            description: { type: 'string', example: 'Create wireframes for the new dashboard' },
+            priority: { type: 'string', enum: ['LOW', 'MEDIUM', 'HIGH'], default: 'MEDIUM' },
+            assigneeId: { type: 'string', example: '6659f13110e53a3e61c56ab8' },
+            projectId: { type: 'string', example: '6659f13110e53a3e61c56ab9' },
+            dueDate: { type: 'string', format: 'date-time', example: '2027-06-01T00:00:00.000Z' },
+          },
+        },
+        UpdateTaskInput: {
+          type: 'object',
+          properties: {
+            title: { type: 'string' },
+            description: { type: 'string' },
+            priority: { type: 'string', enum: ['LOW', 'MEDIUM', 'HIGH'] },
+            assigneeId: { type: 'string', nullable: true },
+            dueDate: { type: 'string', format: 'date-time', nullable: true },
+          },
+        },
+        UpdateStatusInput: {
+          type: 'object',
+          required: ['status'],
+          properties: {
+            status: { type: 'string', enum: ['TODO', 'IN_PROGRESS', 'IN_REVIEW', 'DONE', 'BLOCKED'] },
           },
         },
       },

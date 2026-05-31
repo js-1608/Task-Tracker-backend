@@ -79,6 +79,19 @@ export async function getById(req: Request, res: Response, next: NextFunction) {
  *     tags: [Tasks]
  *     security:
  *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/CreateTaskInput'
+ *     responses:
+ *       201:
+ *         description: Task created
+ *       400:
+ *         description: Bad Request / Validation error
+ *       401:
+ *         description: Unauthorized
  */
 export async function create(req: Request, res: Response, next: NextFunction) {
   try {
@@ -112,6 +125,30 @@ export async function update(req: Request, res: Response, next: NextFunction) {
  *     tags: [Tasks]
  *     security:
  *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *           description: Task ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/UpdateStatusInput'
+ *     responses:
+ *       200:
+ *         description: Task status updated
+ *       400:
+ *         description: Bad Request / Invalid status transition / Validation error
+ *       401:
+ *         description: Unauthorized
+ *       403:
+ *         description: Forbidden (only assignee, manager, or admin can change status)
+ *       404:
+ *         description: Task not found
  */
 export async function updateStatus(req: Request, res: Response, next: NextFunction) {
   try {

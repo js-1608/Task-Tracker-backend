@@ -37,6 +37,19 @@ export async function register(req: Request, res: Response, next: NextFunction) 
  *   post:
  *     summary: Login and receive JWT tokens
  *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/LoginInput'
+ *     responses:
+ *       200:
+ *         description: Login successful
+ *       400:
+ *         description: Bad Request / Validation error
+ *       401:
+ *         description: Invalid credentials
  */
 export async function login(req: Request, res: Response, next: NextFunction) {
   try {
@@ -53,6 +66,19 @@ export async function login(req: Request, res: Response, next: NextFunction) {
  *   post:
  *     summary: Rotate refresh token
  *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/RefreshInput'
+ *     responses:
+ *       200:
+ *         description: Token refreshed
+ *       400:
+ *         description: Bad Request / Validation error
+ *       401:
+ *         description: Invalid/expired refresh token
  */
 export async function refresh(req: Request, res: Response, next: NextFunction) {
   try {
